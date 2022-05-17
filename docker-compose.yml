@@ -1,0 +1,19 @@
+version: '3'
+services:
+    anupam-react-app:
+        build: 
+            context: .
+            # this context specify where we want all files & folders for this image to be pulled from 
+            dockerfile: Dockerfile.dev
+        ports:
+          - "4000:3000"
+        volumes:
+          - .:/app
+    
+    tests: 
+      build:
+        context: .
+        dockerfile: Dockerfile.dev
+      volumes:
+        - .:/app
+      command: ["npm","run","test"]  # To override Dockerfile command

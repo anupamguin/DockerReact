@@ -1,0 +1,29 @@
+FROM node:16-alpine
+
+WORKDIR '/app'
+
+COPY package.json  .
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm","run","start"]
+
+# Normally we use ==>  docker build .  --> To build the docker file without docker-compose.yml but here we use our own customized
+# file Dockerfile.dev soo we have to define the name when build -->  docker build -f Dockerfile.dev .
+# here -f means file
+
+## Then ==>  docker run -p 4000:3000 6a9383bd954fs
+
+# Now if we change any thing inside our local project it will not effected to our docker container
+# image so if i need that if i change anything in the react project and that will effected to our 
+# docker container also then we have to give volumn refenece at running time 
+# example ==>  docker run -p 4000:3000 -v $(pwd):/app 6a9383bd954fs
+
+# Now you can see your local changes will be affected in your docker container
+## here $(pwd):/app means my current working directory maped the /app folder
+
+
+# Now to run test -->  docker exec -it ea31e471f9f6 npm run test
+# and we can select option in.
